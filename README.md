@@ -24,8 +24,8 @@ A Maratona da Programação é um programa intensivo e gratuito desenvolvido par
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/leosirqueira/maratona-programacao-trend.git
-cd maratona-programacao-trend
+git clone https://github.com/seu-usuario/maratona-programacao.git
+cd maratona-programacao
 ```
 
 2. Instale as dependências PHP:
@@ -57,4 +57,4 @@ Este projeto está sob a licença MIT - veja o arquivo [LICENSE.md](LICENSE.md) 
 2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
 3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
 4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
+5. Abra um Pull Request 

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscrição Realizada - Maratona da Programação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFB800',
+                        'github-dark': '#0d1117',
+                        'github-darker': '#010409',
+                        'github-card': '#161b22',
+                        'github-border': '#30363d',
+                        'github-purple': '#7e3af2',
+                        'github-blue': '#58a6ff'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #58a6ff;
+            --github-dark: #0d1117;
+            --github-darker: #010409;
+            --github-purple: #7e3af2;
+            --github-blue: #58a6ff;
+            --github-bg: #161b22;
+            --github-card: #21262d;
+            --github-border: #30363d;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--github-darker);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .typing-effect {
+            font-family: 'Fira Code', monospace;
+            white-space: pre;
+            overflow: hidden;
+            max-width: 100%;
+            width: 100%;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #fff;
+        }
+
+        .blur-effect {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: screen;
+        }
+
+        .blur-purple {
+            background: var(--github-purple);
+        }
+
+        .blur-blue {
+            background: var(--github-blue);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(13, 17, 23, 0.8) 0%, rgba(13, 17, 23, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <!-- Efeitos de blur -->
+    <div class="blur-effect blur-purple absolute top-20 right-1/4"></div>
+    <div class="blur-effect blur-blue absolute bottom-20 left-1/4"></div>
+
+    <div class="glass-card p-8 rounded-xl max-w-2xl w-full text-center relative z-10">
+        <div class="animate-float mb-8">
+            <svg class="w-20 h-20 mx-auto text-github-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+        </div>
+
+        <h1 class="text-4xl font-bold mb-4 code-font">
+            <span class="text-github-purple">return</span> 
+            <span class="text-github-blue">"Inscrição Confirmada!"</span>
+        </h1>
+
+        <div class="space-y-4 mb-8">
+            <p class="text-xl text-gray-300">
+                Parabéns! Sua inscrição para a Maratona de Programação foi realizada com sucesso.
+            </p>
+            <p class="text-gray-400">
+                Em breve você receberá um e-mail com mais informações sobre o início do programa.
+            </p>
+        </div>
+
+        <pre class="typing-effect bg-github-card p-6 rounded-lg text-left mb-8 overflow-x-auto">
+<span class="text-github-purple">const</span> <span class="text-github-blue">inscricao</span> = {
+    status: <span class="text-green-400">"confirmada"</span>,
+    proximos_passos: [
+        <span class="text-yellow-300">"Aguardar e-mail de confirmação"</span>,
+        <span class="text-yellow-300">"Preparar-se para a jornada"</span>,
+        <span class="text-yellow-300">"Começar a estudar"</span>
+    ]
+};</pre>
+
+        <a href="index.html" class="inline-block px-8 py-3 bg-github-blue text-white font-semibold rounded-lg hover:bg-github-purple transition-colors duration-300 code-font">
+            voltar_ao_inicio()
+        </a>
+    </div>
+</body>
+</html> 

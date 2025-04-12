@@ -1,41 +1,1460 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maratona da Programação</title>
-    
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFB800',
+                        'github-dark': '#0d1117',
+                        'github-darker': '#010409',
+                        'github-card': '#161b22',
+                        'github-border': '#30363d',
+                        'github-purple': '#7e3af2',
+                        'github-blue': '#58a6ff'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #58a6ff;
+            --github-dark: #0d1117;
+            --github-darker: #010409;
+            --github-purple: #7e3af2;
+            --github-blue: #58a6ff;
+            --github-bg: #161b22;
+            --github-card: #21262d;
+            --github-border: #30363d;
+            font-size: 90%; /* Ajustado de 80% para 90% */
+        }
         
         body {
             font-family: 'Inter', sans-serif;
+            background-color: var(--github-darker);
+            color: #fff;
+            min-height: 100vh;
+            zoom: 0.9; /* Ajustado de 0.8 para 0.9 */
+            -moz-transform: scale(0.9); /* Ajustado de 0.8 para 0.9 */
+            -moz-transform-origin: 0 0;
         }
 
         .container {
-            width: 100%;
-            max-width: 1200px;
+            max-width: 1440px; /* Ajustado de 1600px para 1440px */
+            padding-left: 2.25rem; /* Ajustado proporcionalmente */
+            padding-right: 2.25rem; /* Ajustado proporcionalmente */
             margin: 0 auto;
-            padding: 0 1rem;
+        }
+
+        .hero-section {
+            position: relative;
+            background: var(--github-darker);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('assets/images/banner.jpg') center/cover;
+            opacity: 0.15;
+            z-index: 0;
+            mix-blend-mode: luminosity;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-wrapper {
+            background: rgba(1, 4, 9, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--github-border);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(126, 58, 242, 0.15);
+        }
+
+        .nav-content {
+            padding: 0.5rem 3rem; /* Aumentado o padding horizontal */
+        }
+
+        .footer-wrapper {
+            background: var(--github-darker);
+            border-top: 1px solid var(--github-border);
+            padding: 4rem 0;
+        }
+
+        .footer-card {
+            background: rgba(22, 27, 34, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-card:hover {
+            border-color: var(--github-purple);
+            transform: translateY(-4px);
+        }
+
+        .tech-icon {
+            width: 2rem;
+            height: 2rem;
+            transition: all 0.3s ease;
+            filter: grayscale(100%) brightness(70%);
+        }
+
+        .tech-icon:hover {
+            transform: scale(1.2);
+            filter: grayscale(0%) brightness(100%);
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .glass-card {
+            /* Restore original properties */
+             background: linear-gradient(135deg, rgba(13, 17, 23, 0.8) 0%, rgba(13, 17, 23, 0.9) 100%);
+             border: 1px solid rgba(255, 255, 255, 0.1);
+             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+             backdrop-filter: blur(10px);
+        }
+
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(45deg, var(--github-purple), var(--github-blue));
+            filter: blur(15px);
+            opacity: 0.2;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .glow-effect:hover::before {
+            opacity: 0.4;
+        }
+
+        .code-title {
+            font-family: 'Fira Code', monospace;
+            color: var(--github-blue);
+            text-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
+        }
+
+        .gradient-blur {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            filter: blur(45px);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .gradient-blur.purple {
+            background: var(--github-purple);
+        }
+
+        .gradient-blur.blue {
+            background: var(--github-blue);
+        }
+
+        .section-bg {
+            background: linear-gradient(to bottom, var(--github-darker), var(--github-bg));
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(255, 184, 0, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(255, 184, 0, 0.4); }
+            100% { box-shadow: 0 0 5px rgba(255, 184, 0, 0.2); }
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .nav-link {
-            @apply text-gray-700 hover:text-[#FFB800] transition duration-300;
-        }
-        
-        .code-background {
-            background: linear-gradient(135deg, #4338ca 0%, #5b21b6 100%);
+            @apply text-gray-300 hover:text-github-blue transition-all duration-300;
             position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--github-blue), var(--github-purple));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .section-card {
+            background: var(--github-card);
+            border: 1px solid var(--github-border);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary);
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-glow {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% 100%;
+            animation: gradientBG 3s ease infinite;
+        }
+
+        .module-card {
+            background: var(--github-card);
+            border: 1px solid var(--github-border);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 184, 0, 0.1);
+        }
+
+        .button-primary {
+            background: var(--github-blue);
+            color: var(--github-darker);
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .button-primary:hover {
+            background: var(--github-purple);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(126, 58, 242, 0.3);
         }
         
         .form-input {
-            @apply w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFB800];
+            background: var(--github-darker);
+            border: 1px solid var(--github-border);
+            color: #fff;
+            transition: all 0.3s ease;
+            padding: 1rem 1.25rem;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 184, 0, 0.1);
+            background: var(--github-card);
+        }
+
+        /* Efeitos de hover nos cards */
+        .card {
+            transition: all 0.3s ease;
+            background: var(--github-card);
+            border: 1px solid var(--github-border);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary);
+        }
+
+        /* Animação para ícones */
+        .icon-animate {
+            transition: all 0.3s ease;
+        }
+
+        .icon-animate:hover {
+            transform: scale(1.1);
+            color: var(--primary);
+        }
+
+        .section-title {
+            font-family: 'Fira Code', monospace;
+            font-size: 3rem; /* Aumentado de 2.5rem */
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--github-blue);
+            text-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
+        }
+
+        .section-subtitle {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.5rem; /* Aumentado de 1.2rem */
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--github-purple);
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        /* Animação de digitação */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+
+        /* Cores mais vibrantes para o código */
+        .typing-effect {
+            position: relative;
+            font-family: 'Fira Code', monospace;
+            white-space: pre;
+            overflow: hidden;
+            max-width: 100%;
+            width: 100%;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #fff;
+        }
+
+        /* Esquema de cores Dracula Theme */
+        .typing-effect .keyword {
+            color: #ff79c6;
+            font-weight: 500;
+            text-shadow: 0 0 8px rgba(255, 121, 198, 0.3);
+        }
+
+        .typing-effect .string {
+            color: #f1fa8c;
+            text-shadow: 0 0 8px rgba(241, 250, 140, 0.3);
+        }
+
+        .typing-effect .comment {
+            color: #6272a4;
+            font-style: italic;
+            text-shadow: 0 0 8px rgba(98, 114, 164, 0.3);
+        }
+
+        .typing-effect .function {
+            color: #50fa7b;
+            text-shadow: 0 0 8px rgba(80, 250, 123, 0.3);
+        }
+
+        .typing-effect .variable {
+            color: #8be9fd;
+            text-shadow: 0 0 8px rgba(139, 233, 253, 0.3);
+        }
+
+        .typing-effect .operator {
+            color: #ff5555;
+            text-shadow: 0 0 8px rgba(255, 85, 85, 0.3);
+        }
+
+        .typing-effect .property {
+            color: #ffb86c;
+            text-shadow: 0 0 8px rgba(255, 184, 108, 0.3);
+        }
+
+        .typing-effect .number {
+            color: #bd93f9;
+            text-shadow: 0 0 8px rgba(189, 147, 249, 0.3);
+        }
+
+        .typing-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: #bd93f9;
+            animation: blink-caret 0.75s step-end infinite;
+            box-shadow: 0 0 8px rgba(189, 147, 249, 0.5);
+        }
+
+        /* Animação do cursor piscando */
+        @keyframes blink-caret {
+            from, to { border-right-color: var(--github-blue); }
+            50% { border-right-color: transparent; }
+        }
+
+        @keyframes typing {
+            0% { width: 0; }
+            50% { width: 100%; }
+            90% { width: 100%; }
+            100% { width: 0; }
+        }
+
+        /* Estilo do Formulário */
+        .glass-card {
+            /* Restore original properties */
+             background: linear-gradient(135deg, rgba(13, 17, 23, 0.8) 0%, rgba(13, 17, 23, 0.9) 100%);
+             border: 1px solid rgba(255, 255, 255, 0.1);
+             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+             backdrop-filter: blur(10px);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #238636;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(35, 134, 54, 0.3);
+        }
+
+        .form-group label {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .validation-message {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            color: #f85149;
+            display: none;
+        }
+
+        .submit-button {
+            width: 100%;
+            background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(135deg, #2ea043 0%, #238636 100%);
+            transform: translateY(-1px);
+        }
+
+        .submit-button:active {
+            transform: translateY(1px);
+        }
+
+        /* Correções para a seção de participantes */
+        .participantes-section {
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 0;
+            background: linear-gradient(180deg, var(--github-darker) 0%, rgba(126, 58, 242, 0.1) 100%);
+        }
+
+        .participantes-card {
+            background: rgba(22, 27, 34, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 8px 32px rgba(126, 58, 242, 0.1);
+        }
+
+        .participantes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .participante-item {
+            background: var(--github-card);
+            border: 1px solid var(--github-border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .participante-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--github-blue), var(--github-purple));
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .participante-item:hover::before {
+            transform: translateX(0);
+        }
+
+        /* Mais efeitos de blur */
+        .blur-effect {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: screen;
+        }
+
+        .blur-purple {
+            background: var(--github-purple);
+        }
+
+        .blur-blue {
+            background: var(--github-blue);
+        }
+
+        /* Formulário com animação de código */
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+            margin-top: 2rem;
+        }
+
+        .code-animation {
+            position: relative;
+            height: 100%;
+            padding: 2rem;
+            background: var(--github-darker);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .typing-code {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--github-blue);
+            white-space: pre;
+            overflow: hidden;
+            border-right: 2px solid var(--github-purple);
+            width: 0;
+            animation: typing 8s steps(60, end) forwards,
+                     blink 1s step-end infinite;
+        }
+
+        /* Ajuste dos tamanhos de fonte */
+        .text-4xl {
+            font-size: 2.5rem;
+        }
+
+        .text-3xl {
+            font-size: 2rem;
+        }
+
+        .text-2xl {
+            font-size: 1.75rem;
+        }
+
+        .text-xl {
+            font-size: 1.5rem;
+        }
+
+        .text-lg {
+            font-size: 1.25rem;
+        }
+
+        /* Ajuste dos espaçamentos */
+        .py-20 {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
+
+        .py-16 {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .mb-12 {
+            margin-bottom: 3.5rem;
+        }
+
+        .gap-8 {
+            gap: 2.5rem;
+        }
+
+        /* Ajuste dos cards e elementos de UI */
+        .module-card, .benefit-card, .participante-item {
+            padding: 2rem;
         }
     </style>
 </head>
-<body>
-    <!-- Resto do conteúdo HTML -->
+<body class="bg-github-darker text-white">
+    <!-- Barra de Navegação -->
+    <nav class="fixed w-full nav-wrapper z-50">
+        <div class="container mx-auto">
+            <div class="nav-content flex justify-between items-center">
+                <a href="#" class="flex items-center space-x-3">
+                    <img src="assets/images/logo.png" alt="Trend IT Solutions" class="h-12">
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#sobre" class="nav-link code-font">&lt;Sobre /&gt;</a>
+                    <a href="#modulos" class="nav-link code-font">&lt;Módulos /&gt;</a>
+                    <a href="#beneficios" class="nav-link code-font">&lt;Benefícios /&gt;</a>
+                    <a href="#quem-pode" class="nav-link code-font">&lt;Participantes /&gt;</a>
+                    <a href="#inscricao" class="glass-card px-6 py-2 rounded-lg text-github-blue hover:text-white transition-colors code-font">
+                        inscricao.init()
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="bg-github-darker">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container mx-auto px-16">
+                <div class="hero-content grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <!-- Lado esquerdo -->
+                    <div class="text-center lg:text-left pr-8" data-aos="fade-up">
+                        <div class=""> 
+                            <h1 class="code-title text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                                <span class="code-font text-github-blue">&gt; </span>
+                                Maratona de Programação
+                            </h1>
+                            <p class="text-xl text-gray-400 mb-8">
+                                <span class="code-font text-github-purple">const</span> objetivo = 
+                                <span class="text-github-blue">"Aprenda programação do zero e desenvolva suas habilidades com mentoria especializada."</span>;
+                            </p>
+                            <a href="#inscricao" class="button-primary inline-block glow-effect code-font">
+                                iniciar()
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Lado direito com efeito de digitação -->
+                    <div class="relative hidden lg:block">
+                        <pre class="typing-effect">
+class MaratonaProgramacao {
+    constructor() {
+        this.modulos = [
+            'Lógica',
+            'Backend',
+            'Frontend'
+        ];
+        this.duracao = '16 semanas';
+        // Comece sua jornada aqui!
+    }
+
+    async iniciar() {
+        await this.preparar();
+        return "Bem-vindo ao futuro!";
+    }
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre o Projeto -->
+        <section id="sobre" class="py-20 relative w-full min-h-screen">
+            <!-- Efeitos de blur -->
+            <div class="blur-effect blur-purple absolute top-20 right-1/4"></div>
+            <div class="blur-effect blur-blue absolute bottom-20 left-1/4"></div>
+            
+            <div class="container relative z-10 mx-auto">
+                <h2 class="section-title">
+                    <span class="text-github-purple">class</span> 
+                    <span class="text-github-blue">SobreOProjeto</span>
+                </h2>
+                <div class="max-w-3xl mx-auto glass-card p-8 rounded-xl">
+                    <p class="text-lg text-gray-300 mb-6">
+                        A <span class="text-primary font-bold">Maratona da Programação</span> é um programa intensivo e gratuito 
+                    desenvolvido para capacitar jovens de 16 a 17 anos com habilidades essenciais de programação 
+                    e lógica computacional.
+                    </p>
+                    <p class="text-lg text-gray-300 mb-6">
+                    Em quatro módulos completos, os participantes terão a oportunidade de aprender 
+                    desde fundamentos de lógica até desenvolvimento de projetos reais, sob a orientação 
+                    de profissionais experientes do mercado.
+                    </p>
+                    <p class="text-lg text-gray-300">
+                    Nosso objetivo é descobrir novos talentos, desenvolver o pensamento lógico, 
+                    introduzir os conceitos essenciais de programação e preparar os participantes 
+                    para ingressar no mercado de trabalho de tecnologia.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Módulos -->
+        <section id="modulos" class="py-20 relative">
+            <!-- Efeitos de blur -->
+            <div class="blur-effect blur-purple absolute -top-40 right-20"></div>
+            <div class="blur-effect blur-blue absolute bottom-20 left-20"></div>
+            
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="text-github-purple">import</span> 
+                    <span class="text-github-blue">{ Módulos }</span>
+                </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Módulo 1 -->
+                    <div class="module-card group" data-aos="fade-up" data-aos-delay="100">
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-github-purple/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-github-purple/20 transition-colors">
+                                <svg class="w-6 h-6 text-github-blue group-hover:text-github-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Lógica de Programação</h3>
+                            <p class="text-gray-400">Fundamentos essenciais para iniciar na programação, incluindo algoritmos e estruturas de dados básicas.</p>
+                        </div>
+                    </div>
+                
+                <!-- Módulo 2 -->
+                    <div class="module-card group" data-aos="fade-up" data-aos-delay="200">
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-github-purple/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-github-purple/20 transition-colors">
+                                <svg class="w-6 h-6 text-github-blue group-hover:text-github-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Backend Development</h3>
+                            <p class="text-gray-400">Desenvolvimento de APIs e servidores usando tecnologias modernas como Node.js e Express.</p>
+                        </div>
+                    </div>
+                
+                <!-- Módulo 3 -->
+                    <div class="module-card group" data-aos="fade-up" data-aos-delay="300">
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-github-purple/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-github-purple/20 transition-colors">
+                                <svg class="w-6 h-6 text-github-blue group-hover:text-github-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Frontend Development</h3>
+                            <p class="text-gray-400">Criação de interfaces modernas e responsivas com HTML, CSS e JavaScript.</p>
+                        </div>
+                    </div>
+                
+                <!-- Módulo 4 -->
+                    <div class="module-card group" data-aos="fade-up" data-aos-delay="400">
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-github-purple/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-github-purple/20 transition-colors">
+                                <svg class="w-6 h-6 text-github-blue group-hover:text-github-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Projeto Final</h3>
+                            <p class="text-gray-400">Desenvolvimento de um projeto completo integrando todas as tecnologias aprendidas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefícios -->
+        <section id="beneficios" class="py-20 relative">
+            <!-- Efeitos de blur -->
+            <div class="blur-effect blur-blue absolute -top-40 left-20"></div>
+            <div class="blur-effect blur-purple absolute bottom-20 right-20"></div>
+            
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="text-github-purple">function</span> 
+                    <span class="text-github-blue">getBeneficios()</span>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Benefício 1 -->
+                    <div class="benefit-card group" data-aos="fade-up" data-aos-delay="100">
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-github-purple/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-github-purple/20 transition-colors">
+                                <svg class="w-6 h-6 text-github-blue group-hover:text-github-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Mentoria Especializada</h3>
+                            <p class="text-gray-400">Acompanhamento individual com profissionais experientes do mercado.</p>
+                        </div>
+                    </div>
+
+                    <!-- Benefício 2 -->
+                    <div class="benefit-card group" data-aos="fade-up" data-aos-delay="200">
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-github-purple/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-github-purple/20 transition-colors">
+                                <svg class="w-6 h-6 text-github-blue group-hover:text-github-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2M7 7h10"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Projetos Práticos</h3>
+                            <p class="text-gray-400">Desenvolvimento de projetos reais para construir um portfólio sólido.</p>
+                        </div>
+                    </div>
+
+                    <!-- Benefício 3 -->
+                    <div class="benefit-card group" data-aos="fade-up" data-aos-delay="300">
+                        <div class="p-6">
+                            <div class="w-12 h-12 bg-github-purple/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-github-purple/20 transition-colors">
+                                <svg class="w-6 h-6 text-github-blue group-hover:text-github-purple transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Certificado</h3>
+                            <p class="text-gray-400">Certificado de conclusão reconhecido pelo mercado de trabalho.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quem Pode Participar -->
+        <section id="quem-pode" class="participantes-section">
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="text-github-purple">class</span> 
+                    <span class="text-github-blue">Participantes</span>
+                </h2>
+
+                <div class="participantes-card">
+                    <div class="participantes-grid">
+                        <div class="participante-item">
+                            <h4 class="text-xl font-bold text-primary mb-3 code-font">
+                                <span class="text-github-purple">//</span> Autodidata
+                            </h4>
+                            <p class="text-gray-400">Gosta de aprender por conta própria e buscar conhecimento</p>
+                        </div>
+
+                        <div class="participante-item">
+                            <h4 class="text-xl font-bold text-primary mb-3 code-font">
+                                <span class="text-github-purple">//</span> Proativo
+                            </h4>
+                            <p class="text-gray-400">Toma iniciativa e não espera que tudo seja entregue pronto</p>
+                        </div>
+
+                        <div class="participante-item">
+                            <h4 class="text-xl font-bold text-primary mb-3 code-font">
+                                <span class="text-github-purple">//</span> Interessado
+                            </h4>
+                            <p class="text-gray-400">Possui genuíno interesse por tecnologia e programação</p>
+                        </div>
+                    </div>
+
+                    <p class="text-center text-gray-400 italic mt-12 code-font">
+                        <span class="text-github-purple">/**</span>
+                            Não é necessário ter conhecimento prévio em programação.
+                            Basta interesse, curiosidade e vontade de aprender!
+                        <span class="text-github-purple">*/</span>
+                    </p>
+                </div>
+
+                <!-- Efeitos de blur -->
+                <div class="gradient-blur purple absolute top-1/4 left-1/4"></div>
+                <div class="gradient-blur blue absolute bottom-1/4 right-1/4"></div>
+            </div>
+        </section>
+
+        <!-- Formulário de Inscrição -->
+        <section id="inscricao" class="py-20 relative">
+            <!-- Efeitos de blur -->
+            <div class="blur-effect blur-purple absolute -top-40 left-20"></div>
+            <div class="blur-effect blur-blue absolute bottom-20 right-20"></div>
+            
+            <div class="container">
+                <h2 class="section-title">
+                    <span class="text-github-purple">function</span> 
+                    <span class="text-github-blue">inscrever()</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <!-- Efeito de Digitação -->
+                    <div class="hidden lg:block">
+                        <pre class="typing-effect">
+class Inscricao {
+    constructor(dados) {
+        this.nome = dados.nome;
+        this.email = dados.email;
+        this.idade = dados.idade;
+        this.motivacao = dados.motivacao;
+    }
+
+    async enviar() {
+        try {
+            await this.validar();
+            return "Inscrição realizada!";
+        } catch (erro) {
+            console.error(erro);
+        }
+    }
+}</pre>
+                    </div>
+                    
+            <!-- Formulário -->
+            <div class="glass-card p-8 rounded-lg backdrop-blur-lg">
+                <form id="inscricao-form" class="space-y-6">
+                    <div class="form-group">
+                        <label for="nome" class="block text-sm font-medium text-gray-300 mb-1">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" required
+                            class="form-input w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                            placeholder="Digite seu nome completo">
+                        <p class="error-message text-red-500 text-sm mt-1 hidden">Por favor, preencha seu nome completo</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dataNascimento" class="block text-sm font-medium text-gray-300 mb-1">Data de Nascimento</label>
+                        <input type="date" id="dataNascimento" name="dataNascimento" required
+                            class="form-input w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                        <p id="dataNascimentoError" class="text-red-500 text-sm mt-1 hidden">Você deve ter entre 16 e 17 anos para participar.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefone" class="block text-sm font-medium text-gray-300 mb-1">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" required
+                            class="form-input w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                            placeholder="(00) 00000-0000">
+                        <p class="error-message text-red-500 text-sm mt-1 hidden">Por favor, insira um telefone válido</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="block text-sm font-medium text-gray-300 mb-1">E-mail</label>
+                        <input type="email" id="email" name="email" required
+                            class="form-input w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                            placeholder="seu@email.com">
+                        <p class="error-message text-red-500 text-sm mt-1 hidden">Por favor, insira um e-mail válido</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="conhecimentoPrevio" class="block text-sm font-medium text-gray-300 mb-1">Você já possui algum conhecimento com programação? Quais?</label>
+                        <textarea id="conhecimentoPrevio" name="conhecimentoPrevio" rows="3" required
+                            class="form-input w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors resize-none"
+                            placeholder="Descreva sua experiência prévia com programação, se houver..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="motivacao" class="block text-sm font-medium text-gray-300 mb-1">Por que você quer aprender a programar?</label>
+                        <textarea id="motivacao" name="motivacao" rows="3" required
+                            class="form-input w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors resize-none"
+                            placeholder="Conte-nos sua motivação..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nivelDedicacao" class="block text-sm font-medium text-gray-300 mb-1">Qual o seu nível de dedicação para aprender a programar?</label>
+                        <select id="nivelDedicacao" name="nivelDedicacao" required
+                            class="form-input w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+                            <option value="">Selecione uma opção</option>
+                            <option value="alto">Alto - Posso dedicar mais de 20 horas semanais</option>
+                            <option value="medio">Médio - Posso dedicar entre 10 e 20 horas semanais</option>
+                            <option value="baixo">Baixo - Posso dedicar menos de 10 horas semanais</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capacidades" class="block text-sm font-medium text-gray-300 mb-1">Como você avalia suas capacidades lógicas e autodidatas?</label>
+                        <textarea id="capacidades" name="capacidades" rows="3" required
+                            class="form-input w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors resize-none"
+                            placeholder="Descreva como você aprende por conta própria e resolve problemas..."></textarea>
+                    </div>
+                    
+                    <div class="flex justify-center">
+                        <button type="submit"
+                            class="px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors">
+                            Enviar Inscrição
+                        </button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+    <!-- Rodapé -->
+<footer class="footer-wrapper">
+        <div class="container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
+            <!-- Coluna 1: Logo e Informações -->
+            <div class="md:col-span-4">
+                <div class="footer-card h-full">
+                    <div class="flex items-center mb-6">
+                        <img src="assets/images/logo.png" alt="Trend IT Solutions" class="h-12">
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-gray-400">
+                            <span class="code-font text-github-purple">const</span> 
+                            <span class="code-font text-github-blue">projeto</span> = {
+                        </p>
+                        <p class="text-gray-400 pl-4">
+                            tipo: <span class="text-github-blue">"Capacitação"</span>,<br>
+                            público: <span class="text-github-blue">"Jovens 16-17 anos"</span>,<br>
+                            duração: <span class="text-github-blue">"16 semanas"</span>
+                        </p>
+                        <p class="text-gray-400">};</p>
+                </div>
+                </div>
+            </div>
+
+            <!-- Coluna 2: Contato -->
+            <div class="md:col-span-4">
+                <div class="footer-card h-full">
+                    <h3 class="code-title text-xl font-bold mb-6">
+                        <span class="text-github-purple">//</span> Contato
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <span class="code-font text-github-blue">&gt;</span>
+                            <a href="tel:1132142859" class="text-gray-400 hover:text-github-blue transition-colors">
+                    (11) 3214-2859
+                            </a>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="code-font text-github-blue">&gt;</span>
+                            <a href="mailto:contato@maratonadaprogramacao.com.br" class="text-gray-400 hover:text-github-blue transition-colors break-all">
+                    contato@maratonadaprogramacao.com.br
+                        </a>
+                    </div>
+                </div>
+            </div>
+                </div>
+
+            <!-- Coluna 3: Tech Stack -->
+            <div class="md:col-span-4">
+                <div class="footer-card h-full">
+                    <h3 class="code-title text-xl font-bold mb-6">
+                        <span class="text-github-purple">//</span> Tech Stack
+                    </h3>
+                    <div class="grid grid-cols-5 gap-4">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="tech-icon" alt="JavaScript">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="tech-icon" alt="Python">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="tech-icon" alt="React">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="tech-icon" alt="Node.js">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="tech-icon" alt="HTML5">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="tech-icon" alt="CSS3">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="tech-icon" alt="Git">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="tech-icon" alt="MySQL">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" class="tech-icon" alt="TypeScript">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" class="tech-icon" alt="Tailwind CSS">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" class="tech-icon" alt="MongoDB">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" class="tech-icon" alt="Docker">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" class="tech-icon" alt="Jest">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" class="tech-icon" alt="Sass">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" class="tech-icon" alt="VS Code">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Linha divisória com gradiente -->
+        <div class="relative h-px mb-8">
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-github-border to-transparent"></div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center space-y-4">
+            <div class="flex justify-center items-center space-x-8">
+                <span class="text-github-blue code-font">Trend IT Solutions</span>
+                <span class="text-github-purple code-font">OC360</span>
+            </div>
+            <p class="text-gray-400 code-font text-sm">
+                <span class="text-github-purple">/**</span> © 2024 Maratona da Programação. Todos os direitos reservados. <span class="text-github-purple">*/</span>
+            </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Toggle Menu Mobile
+        const menuButton = document.getElementById('menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (menuButton && mobileMenu) {
+            menuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Links de Navegação - Scroll Suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Verificar status da submissão
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const message = urlParams.get('message');
+            
+            if (status === 'success') {
+                alert('Inscrição realizada com sucesso! Em breve você receberá um email de confirmação.');
+                window.history.replaceState({}, document.title, window.location.pathname);
+                window.scrollTo(0, 0);
+            } else if (status === 'error') {
+                alert('Ocorreu um erro ao enviar sua inscrição: ' + (message || 'Por favor, tente novamente.'));
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        }
+
+        // Formatação automática do telefone
+        const telefoneInput = document.getElementById('telefone');
+        if (telefoneInput) {
+            telefoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                
+                if (value.length <= 11) {
+                    if (value.length > 2) {
+                        value = '(' + value.substring(0, 2) + ') ' + value.substring(2);
+                    }
+                    if (value.length > 10) {
+                        value = value.substring(0, 10) + '-' + value.substring(10);
+                    }
+                    e.target.value = value;
+                }
+            });
+        }
+
+        // Validação do formulário
+        const form = document.getElementById('inscricao-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                let isValid = true;
+                
+                // Validar nome
+                const nome = document.getElementById('nome');
+                const nomeError = document.getElementById('nomeError');
+                if (nome && nomeError) {
+                    if (!nome.value.trim() || nome.value.trim().split(' ').length < 2) {
+                        nomeError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        nomeError.classList.add('hidden');
+                    }
+                }
+                
+                // Validar data de nascimento
+                const dataNascimento = document.getElementById('dataNascimento');
+                const dataNascimentoError = document.getElementById('dataNascimentoError');
+                if (dataNascimento && dataNascimentoError) {
+                    const idade = calcularIdade(dataNascimento.value);
+                    if (idade < 16 || idade > 17) {
+                        dataNascimentoError.textContent = "Você deve ter entre 16 e 17 anos para participar.";
+                        dataNascimentoError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        dataNascimentoError.classList.add('hidden');
+                    }
+                }
+                
+                // Validar telefone
+                const telefone = document.getElementById('telefone');
+                const telefoneError = document.getElementById('telefoneError');
+                if (telefone && telefoneError) {
+                    const telefoneRegex = /^\(\d{2}\)\s\d{5}-\d{4}$/;
+                    if (!telefoneRegex.test(telefone.value)) {
+                        telefoneError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        telefoneError.classList.add('hidden');
+                    }
+                }
+                
+                // Validar email
+                const email = document.getElementById('email');
+                const emailError = document.getElementById('emailError');
+                if (email && emailError) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email.value)) {
+                        emailError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        emailError.classList.add('hidden');
+                    }
+                }
+
+                if (isValid) {
+                    // Preparar os dados do formulário
+                    const formData = new FormData(form);
+
+                    // Enviar o formulário usando fetch
+                    fetch('send_email.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro no envio');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        window.location.href = 'obrigado.html';
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        alert('Ocorreu um erro ao enviar sua inscrição. Por favor, tente novamente.');
+                    });
+                }
+            });
+        }
+
+        // Validação em tempo real da data de nascimento
+        const dataNascimentoInput = document.getElementById('dataNascimento');
+        const dataNascimentoError = document.getElementById('dataNascimentoError');
+
+        if (dataNascimentoInput && dataNascimentoError) {
+            dataNascimentoInput.addEventListener('change', function() {
+                const idade = calcularIdade(this.value);
+                if (idade < 16 || idade > 17) {
+                    dataNascimentoError.textContent = `Idade calculada: ${idade} anos. Você deve ter entre 16 e 17 anos para participar.`;
+                    dataNascimentoError.classList.remove('hidden');
+                    this.setCustomValidity('Idade inválida');
+                } else {
+                    dataNascimentoError.classList.add('hidden');
+                    this.setCustomValidity('');
+                }
+            });
+
+            // Definir data máxima e mínima permitida
+            const hoje = new Date();
+            const minDate = new Date();
+            const maxDate = new Date();
+            
+            // Calcular datas limite para 16 e 17 anos
+            minDate.setFullYear(hoje.getFullYear() - 18); // Máximo 17 anos
+            maxDate.setFullYear(hoje.getFullYear() - 15); // Mínimo 16 anos
+            
+            // Formatar datas para o formato YYYY-MM-DD
+            dataNascimentoInput.min = minDate.toISOString().split('T')[0];
+            dataNascimentoInput.max = maxDate.toISOString().split('T')[0];
+        }
+
+        // Função para calcular idade
+        function calcularIdade(dataNascimento) {
+            const hoje = new Date();
+            const nascimento = new Date(dataNascimento);
+            let idade = hoje.getFullYear() - nascimento.getFullYear();
+            const mesAtual = hoje.getMonth();
+            const diaAtual = hoje.getDate();
+            const mesNascimento = nascimento.getMonth();
+            const diaNascimento = nascimento.getDate();
+            
+            // Ajusta a idade se ainda não fez aniversário este ano
+            if (mesAtual < mesNascimento || (mesAtual === mesNascimento && diaAtual < diaNascimento)) {
+                idade--;
+            }
+            
+            return idade;
+        }
+
+        // Definir a classe TypeWriter primeiro
+        class TypeWriter {
+            constructor(element, text, options = {}) {
+                this.element = element;
+                this.text = text;
+                this.loopDelay = options.loopDelay || 2000;
+                this.typeSpeed = options.typeSpeed || 50;
+                this.deleteSpeed = options.deleteSpeed || 25;
+                this.html = options.html || false;
+                this.options = options;
+                this.currentText = '';
+                this.isDeleting = false;
+                this.colorized = false;
+                this.loop();
+            }
+
+            type() {
+                // Verifica se completou a digitação
+                const complete = !this.isDeleting && this.currentText === this.text;
+                // Verifica se terminou de apagar
+                const empty = this.isDeleting && this.currentText === '';
+
+                if (complete) {
+                    // Aguarda um tempo e começa a apagar
+                    setTimeout(() => {
+                        this.isDeleting = true;
+                        this.loop();
+                    }, this.loopDelay);
+                    return;
+                }
+
+                if (empty) {
+                    // Quando terminar de apagar, reinicia o ciclo
+                    this.isDeleting = false;
+                    setTimeout(() => {
+                        this.currentText = '';
+                        this.loop();
+                    }, 500);
+                    return;
+                }
+
+                // Lógica de digitação/apagar
+                const nextText = this.isDeleting
+                    ? this.currentText.slice(0, -1)
+                    : this.text.slice(0, this.currentText.length + 1);
+
+                this.currentText = nextText;
+                this.element.textContent = this.currentText;
+
+                // Velocidade diferente para digitar e apagar
+                const speed = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
+                setTimeout(() => this.loop(), speed);
+            }
+
+            loop() {
+                this.type();
+            }
+        }
+
+        // Função para colorir o código com mais cores
+        function colorizeCode(code) {
+            return code
+                .replace(/\b(class|constructor|async|await|try|catch|return|this|const|let|var|function)\b/g, '<span class="keyword">$1</span>')
+                .replace(/\b([A-Z][a-zA-Z]*)\b(?=\s*[{])/g, '<span class="function">$1</span>')
+                .replace(/(['"])(.*?)\1/g, '<span class="string">$1$2$1</span>')
+                .replace(/\b([a-zA-Z]+)\b(?=\s*[=])/g, '<span class="variable">$1</span>')
+                .replace(/\/\/.*/g, '<span class="comment">$&</span>')
+                .replace(/[{}()]/g, '<span class="operator">$&</span>')
+                .replace(/\b(\d+)\b/g, '<span class="number">$1</span>')
+                .replace(/\b([a-zA-Z]+)\b(?=\.)/g, '<span class="property">$1</span>');
+        }
+
+        // Códigos a serem digitados
+        const bannerCode = `class MaratonaProgramacao {
+    constructor() {
+        this.modulos = [
+            'Lógica',
+            'Backend',
+            'Frontend'
+        ];
+        this.duracao = '16 semanas';
+        // Comece sua jornada aqui!
+    }
+
+    async iniciar() {
+        await this.preparar();
+        return "Bem-vindo ao futuro!";
+    }
+}`;
+
+        const formularioCode = `class Inscricao {
+    constructor(dados) {
+        this.nome = dados.nome;
+        this.email = dados.email;
+        this.idade = dados.idade;
+        this.motivacao = dados.motivacao;
+    }
+
+    async enviar() {
+        try {
+            await this.validar();
+            return "Inscrição realizada!";
+        } catch (erro) {
+            console.error(erro);
+        }
+    }
+}`;
+
+        // Esperar o DOM carregar completamente
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar os efeitos de digitação
+            document.querySelectorAll('.typing-effect').forEach((element, index) => {
+                const code = index === 0 ? bannerCode : formularioCode;
+                new TypeWriter(element, code, {
+                    typeSpeed: 30,
+                    deleteSpeed: 15,
+                    loopDelay: 2000,
+                    html: true,
+                    colorizeFn: colorizeCode
+                });
+            });
+        });
+    </script>
 </body>
 </html>
