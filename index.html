@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maratona da Programação</title>
+    <link rel="icon" type="image/x-icon" href="assets/images/icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/icon.png">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -84,15 +86,24 @@
         }
 
         .nav-wrapper {
-            background: rgba(1, 4, 9, 0.95);
+            background: rgba(1, 4, 9, 0.8);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--github-border);
             padding: 1rem 0;
             box-shadow: 0 4px 20px rgba(126, 58, 242, 0.15);
         }
 
+        .nav-logo {
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            filter: grayscale(0%);
+        }
+
         .nav-content {
-            padding: 0.5rem 3rem; /* Aumentado o padding horizontal */
+            padding: 0.5rem 3rem;
         }
 
         .footer-wrapper {
@@ -116,8 +127,8 @@
         }
 
         .tech-icon {
-            width: 2rem;
-            height: 2rem;
+            width: 2.5rem;
+            height: 2.5rem;
             transition: all 0.3s ease;
             filter: grayscale(100%) brightness(70%);
         }
@@ -658,6 +669,29 @@
         .module-card, .benefit-card, .participante-item {
             padding: 2rem;
         }
+
+        @media (max-width: 768px) {
+            .tech-icon {
+                width: 2rem;
+                height: 2rem;
+            }
+            
+            .footer-logo {
+                height: 3.5rem;
+                margin: 1rem 0;
+            }
+
+            .hero-title {
+                font-size: 3.5rem !important;
+                line-height: 1.1 !important;
+                margin-bottom: 3rem !important;
+            }
+
+            .hero-subtitle {
+                font-size: 1.5rem !important;
+                margin-bottom: 2.5rem !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-github-darker text-white">
@@ -666,8 +700,15 @@
         <div class="container mx-auto">
             <div class="nav-content flex justify-between items-center">
                 <a href="#" class="flex items-center space-x-3">
-                    <img src="assets/images/logo.png" alt="Trend IT Solutions" class="h-12">
+                    <img src="assets/images/logo.png" alt="Trend IT Solutions" class="h-12 nav-logo">
                 </a>
+                <!-- Botão do Menu Mobile -->
+                <button id="menu-button" class="md:hidden text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+                <!-- Menu Desktop -->
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#sobre" class="nav-link code-font">&lt;Sobre /&gt;</a>
                     <a href="#modulos" class="nav-link code-font">&lt;Módulos /&gt;</a>
@@ -676,6 +717,18 @@
                     <a href="#inscricao" class="glass-card px-6 py-2 rounded-lg text-github-blue hover:text-white transition-colors code-font">
                         inscricao.init()
                     </a>
+                </div>
+                <!-- Menu Mobile -->
+                <div id="mobile-menu" class="hidden md:hidden fixed top-[72px] left-0 right-0 p-4 bg-github-darker border-t border-github-border">
+                    <div class="flex flex-col space-y-4">
+                        <a href="#sobre" class="nav-link code-font text-center">&lt;Sobre /&gt;</a>
+                        <a href="#modulos" class="nav-link code-font text-center">&lt;Módulos /&gt;</a>
+                        <a href="#beneficios" class="nav-link code-font text-center">&lt;Benefícios /&gt;</a>
+                        <a href="#quem-pode" class="nav-link code-font text-center">&lt;Participantes /&gt;</a>
+                        <a href="#inscricao" class="glass-card px-6 py-2 rounded-lg text-github-blue hover:text-white transition-colors code-font text-center">
+                            inscricao.init()
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -689,15 +742,16 @@
                     <!-- Lado esquerdo -->
                     <div class="text-center lg:text-left pr-8" data-aos="fade-up">
                         <div class=""> 
-                            <h1 class="code-title text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                            <h1 class="hero-title code-title text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                                 <span class="code-font text-github-blue">&gt; </span>
                                 Maratona de Programação
                             </h1>
-                            <p class="text-xl text-gray-400 mb-8">
-                                <span class="code-font text-github-purple">const</span> objetivo = 
+                            <p class="hero-subtitle text-xl mb-8">
+                                <span class="code-font text-github-purple">const</span> 
+                                <span class="text-github-purple">objetivo</span> = 
                                 <span class="text-github-blue">"Aprenda programação do zero e desenvolva suas habilidades com mentoria especializada."</span>;
                             </p>
-                            <a href="#inscricao" class="button-primary inline-block glow-effect code-font">
+                            <a href="#inscricao" class="px-8 py-3 bg-[#2ea043] hover:bg-[#3fb950] text-white font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors code-font inline-block">
                                 iniciar()
                             </a>
                         </div>
@@ -728,7 +782,7 @@ class MaratonaProgramacao {
         </section>
 
         <!-- Sobre o Projeto -->
-        <section id="sobre" class="py-20 relative w-full min-h-screen">
+        <section id="sobre" class="py-16 relative w-full">
             <!-- Efeitos de blur -->
             <div class="blur-effect blur-purple absolute top-20 right-1/4"></div>
             <div class="blur-effect blur-blue absolute bottom-20 left-1/4"></div>
@@ -759,7 +813,7 @@ class MaratonaProgramacao {
         </section>
 
         <!-- Módulos -->
-        <section id="modulos" class="py-20 relative">
+        <section id="modulos" class="py-16 relative">
             <!-- Efeitos de blur -->
             <div class="blur-effect blur-purple absolute -top-40 right-20"></div>
             <div class="blur-effect blur-blue absolute bottom-20 left-20"></div>
@@ -1028,8 +1082,8 @@ class Inscricao {
                     
                     <div class="flex justify-center">
                         <button type="submit"
-                            class="px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors">
-                            Enviar Inscrição
+                            class="px-8 py-3 text-white font-semibold rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors code-font bg-[#2ea043] hover:bg-[#3fb950]">
+                            submit()
                         </button>
                     </div>
                 </form>
@@ -1040,94 +1094,44 @@ class Inscricao {
 </main>
 
     <!-- Rodapé -->
-<footer class="footer-wrapper">
-        <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12">
-            <!-- Coluna 1: Logo e Informações -->
-            <div class="md:col-span-4">
-                <div class="footer-card h-full">
-                    <div class="flex items-center mb-6">
-                        <img src="assets/images/logo.png" alt="Trend IT Solutions" class="h-12">
-                    </div>
-                    <div class="space-y-4">
-                        <p class="text-gray-400">
-                            <span class="code-font text-github-purple">const</span> 
-                            <span class="code-font text-github-blue">projeto</span> = {
-                        </p>
-                        <p class="text-gray-400 pl-4">
-                            tipo: <span class="text-github-blue">"Capacitação"</span>,<br>
-                            público: <span class="text-github-blue">"Jovens 16-17 anos"</span>,<br>
-                            duração: <span class="text-github-blue">"16 semanas"</span>
-                        </p>
-                        <p class="text-gray-400">};</p>
+    <footer class="footer-wrapper">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+                <!-- Logo da Trend -->
+                <div>
+                    <img src="assets/images/logo.png" alt="Trend IT Solutions" class="footer-logo h-20">
                 </div>
+
+                <!-- Tech Stack -->
+                <div class="grid grid-cols-4 md:grid-cols-6 gap-6">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="tech-icon" alt="JavaScript">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="tech-icon" alt="Python">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="tech-icon" alt="React">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="tech-icon" alt="Node.js">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="tech-icon" alt="HTML5">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="tech-icon" alt="CSS3">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="tech-icon" alt="Git">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="tech-icon" alt="MySQL">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" class="tech-icon" alt="TypeScript">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" class="tech-icon" alt="Tailwind CSS">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" class="tech-icon" alt="Docker">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" class="tech-icon" alt="VS Code">
                 </div>
             </div>
 
-            <!-- Coluna 2: Contato -->
-            <div class="md:col-span-4">
-                <div class="footer-card h-full">
-                    <h3 class="code-title text-xl font-bold mb-6">
-                        <span class="text-github-purple">//</span> Contato
-                    </h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-3">
-                            <span class="code-font text-github-blue">&gt;</span>
-                            <a href="tel:1132142859" class="text-gray-400 hover:text-github-blue transition-colors">
-                    (11) 3214-2859
-                            </a>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <span class="code-font text-github-blue">&gt;</span>
-                            <a href="mailto:contato@maratonadaprogramacao.com.br" class="text-gray-400 hover:text-github-blue transition-colors break-all">
-                    contato@maratonadaprogramacao.com.br
-                        </a>
-                    </div>
-                </div>
+            <!-- Linha divisória com gradiente -->
+            <div class="relative h-px my-8">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-github-border to-transparent"></div>
             </div>
+
+            <!-- Copyright -->
+            <div class="text-center space-y-4">
+                <div class="flex justify-center items-center space-x-8">
+                    <span class="text-github-blue code-font">Trend IT Solutions</span>
                 </div>
-
-            <!-- Coluna 3: Tech Stack -->
-            <div class="md:col-span-4">
-                <div class="footer-card h-full">
-                    <h3 class="code-title text-xl font-bold mb-6">
-                        <span class="text-github-purple">//</span> Tech Stack
-                    </h3>
-                    <div class="grid grid-cols-5 gap-4">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="tech-icon" alt="JavaScript">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="tech-icon" alt="Python">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="tech-icon" alt="React">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" class="tech-icon" alt="Node.js">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="tech-icon" alt="HTML5">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="tech-icon" alt="CSS3">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="tech-icon" alt="Git">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="tech-icon" alt="MySQL">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" class="tech-icon" alt="TypeScript">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" class="tech-icon" alt="Tailwind CSS">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" class="tech-icon" alt="MongoDB">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" class="tech-icon" alt="Docker">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" class="tech-icon" alt="Jest">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" class="tech-icon" alt="Sass">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" class="tech-icon" alt="VS Code">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Linha divisória com gradiente -->
-        <div class="relative h-px mb-8">
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-github-border to-transparent"></div>
-        </div>
-
-        <!-- Copyright -->
-        <div class="text-center space-y-4">
-            <div class="flex justify-center items-center space-x-8">
-                <span class="text-github-blue code-font">Trend IT Solutions</span>
-                <span class="text-github-purple code-font">OC360</span>
-            </div>
-            <p class="text-gray-400 code-font text-sm">
-                <span class="text-github-purple">/**</span> © 2024 Maratona da Programação. Todos os direitos reservados. <span class="text-github-purple">*/</span>
-            </p>
+                <p class="text-gray-400 code-font text-sm">
+                    <span class="text-github-purple">/**</span> © 2025 Maratona da Programação. Todos os direitos reservados. <span class="text-github-purple">*/</span>
+                </p>
             </div>
         </div>
     </footer>

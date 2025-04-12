@@ -1,0 +1,54 @@
+#mobile-menu {
+    transition: all 0.3s ease-in-out;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+#mobile-menu.hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    visibility: hidden;
+}
+
+#menu-button {
+    transition: transform 0.3s ease;
+}
+
+#menu-button:hover {
+    transform: scale(1.05);
+}
+
+#menu-button:active {
+    transform: scale(0.95);
+}
+
+.button-primary {
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.button-primary:hover {
+    transform: translateY(-2px);
+}
+
+.submit-button {
+    width: 100%;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    transform: translateY(-1px);
+}
+
+.submit-button:active {
+    transform: translateY(1px);
+} 
